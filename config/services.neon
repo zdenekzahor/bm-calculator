@@ -1,0 +1,5 @@
+services:
+	- ZdenekZahor\BmCalculator\Web\Router\RouterFactory::createRouter
+	-
+		implement: ZdenekZahor\BmCalculator\Web\Controls\BrowserSyncControl\BrowserSyncControlFactory
+		arguments: [%browserSync.port%]

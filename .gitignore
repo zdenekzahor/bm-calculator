@@ -1,0 +1,8 @@
+/.docker/.env
+/.docker/images/php/php.ini
+/vendor/
+/.phpunit.result.cache
+/.docker/images/web/certs/
+/config/local.neon
+/node_modules/
+/www/design/vendor/

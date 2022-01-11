@@ -1,0 +1,36 @@
+version: "3.5"
+
+networks:
+  default:
+    name: ${NETWORK_NAME_PROXY}
+    external: true
+  project:
+
+services:
+  php:
+    networks:
+      - project
+
+  web:
+    networks:
+      - default
+      - project
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=${NETWORK_NAME_PROXY}"
+      - "traefik.http.services.${COMPOSE_PROJECT_NAME}.loadbalancer.server.port=80"
+      - "traefik.http.services.${COMPOSE_PROJECT_NAME}.loadbalancer.server.scheme=http"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}.service=${COMPOSE_PROJECT_NAME}"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}.rule=Host(`${WEB_DOMAIN}`)"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}.entryPoints=web"
+      - "traefik.http.services.${COMPOSE_PROJECT_NAME}_secure.loadbalancer.server.port=443"
+      - "traefik.http.services.${COMPOSE_PROJECT_NAME}_secure.loadbalancer.server.scheme=https"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}_secure.service=${COMPOSE_PROJECT_NAME}_secure"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}_secure.rule=Host(`${WEB_DOMAIN}`)"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}_secure.entryPoints=websecure"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}_secure.tls=true"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}_secure.tls.certresolver=myresolver"
+
+  clientBuildServer:
+    networks:
+      - project

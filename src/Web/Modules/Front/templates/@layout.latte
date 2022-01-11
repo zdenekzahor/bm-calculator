@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+
+	<title>{ifset title}{include title|stripHtml} | {/ifset}Nette Web</title>
+	<link rel="stylesheet" type="text/css" href="/design/front/front.css">
+</head>
+
+<body>
+	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+
+	{include content}
+
+	{block scripts}
+		<script src="/design/vendor/nette-forms/netteForms.min.js"></script>
+		<script src="/design/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+	{/block}
+
+	{control browserSync}
+</body>
+</html>

@@ -1,0 +1,44 @@
+version: "3.5"
+
+services:
+  php:
+    build: images/php
+    environment:
+      - NETTE_DEBUG_MODE=${NETTE_DEBUG_MODE}
+      - BROWSER_SYNC_PORT=${BROWSER_SYNC_PORT}
+      - WEB_DOMAIN=${WEB_DOMAIN}
+    volumes:
+      - ..:/usr/app
+      - ./images/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+    working_dir: /usr/app
+    user: ${HOST_USER_UID}:${HOST_USER_GID}
+
+  web:
+    image: httpd:2.4-alpine
+    working_dir: /usr/app
+    environment:
+      - WEB_DOMAIN=${WEB_DOMAIN}
+    volumes:
+      - ./images/web/apache.conf:/usr/local/apache2/conf/httpd.conf
+      - ..:/usr/app
+      - ${CRT_FILE}:/usr/local/apache2/conf/server.crt
+      - ${CRT_KEY_FILE}:/usr/local/apache2/conf/server.key
+    depends_on:
+      - php
+
+  clientBuildServer:
+    image: node:17.1-alpine
+    working_dir: /usr/app
+    user: ${HOST_USER_UID}:${HOST_USER_GID}
+    environment:
+      - WEB_DOMAIN=${WEB_DOMAIN}
+      - BROWSER_SYNC_PORT=${BROWSER_SYNC_PORT}
+      - CRT_FILE=/var/server.crt
+      - CRT_KEY_FILE=/var/server.key
+    volumes:
+      - ..:/usr/app
+      - ${CRT_FILE}:/var/server.crt
+      - ${CRT_KEY_FILE}:/var/server.key
+    command: ["npm", "run", "serve"]
+    ports:
+      - "${BROWSER_SYNC_PORT}:${BROWSER_SYNC_PORT}"
