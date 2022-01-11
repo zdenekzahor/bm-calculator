@@ -2,6 +2,16 @@ parameters:
 	browserSync:
 		port: null
 
+	providers:
+	    -
+	        id: 1
+	        name: 'Sample provider 1'
+	        priceCoefficient: 10.0
+	    -
+	        id: 2
+	        name: 'Sample provider 2'
+	        priceCoefficient: 12.5
+
 application:
 	errorPresenter: Error
 	mapping:
@@ -15,3 +25,7 @@ di:
 	export:
 		parameters: no
 		tags: no
+
+security:
+	users:
+		[]

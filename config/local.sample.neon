@@ -2,3 +2,7 @@ parameters:
 #	# Set for enabling Browsersync
 #	browserSync:
 #		port: ::intval(::getenv('BROWSER_SYNC_PORT'))
+
+security:
+	users:
+		admin: test

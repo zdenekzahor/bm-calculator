@@ -23,4 +23,12 @@ abstract class BasePresenter extends Presenter
     {
         return $this->browserSyncControlFactory->create();
     }
+
+    protected function beforeRender()
+    {
+        parent::beforeRender();
+
+        $this->template->isUserLoggedIn = $this->getUser()->isLoggedIn();
+        $this->template->phpVersion = phpversion();
+    }
 }

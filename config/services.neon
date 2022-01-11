@@ -3,3 +3,7 @@ services:
 	-
 		implement: ZdenekZahor\BmCalculator\Web\Controls\BrowserSyncControl\BrowserSyncControlFactory
 		arguments: [%browserSync.port%]
+	- ZdenekZahor\BmCalculator\Web\Controls\CalculatorControl\CalculatorControlFactory
+	- ZdenekZahor\BmCalculator\Model\ProviderDaoConfig(%providers%)
+	- ZdenekZahor\BmCalculator\Service\CalculationService
+	- ZdenekZahor\BmCalculator\Web\Controls\LoginControl\LoginControlFactory

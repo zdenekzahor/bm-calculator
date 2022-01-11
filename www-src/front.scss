@@ -2,20 +2,10 @@
 
 // Bootstrap 5
 
-// Required
-@import "../node_modules/bootstrap/scss/functions";
-
 // Default variable overrides
 $enable-rounded: false;
 $body-bg: $color-brand-2;
 $body-color: $color-brand-3;
 $primary: $color-brand;
 
-// Required
-@import "../node_modules/bootstrap/scss/variables";
-@import "../node_modules/bootstrap/scss/mixins";
-@import "../node_modules/bootstrap/scss/root";
-
-// Optional Bootstrap components here
-@import "../node_modules/bootstrap/scss/buttons";
-@import "../node_modules/bootstrap/scss/forms";
+@import "../node_modules/bootstrap/scss/bootstrap";

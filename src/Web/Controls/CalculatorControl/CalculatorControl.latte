@@ -1,0 +1,28 @@
+{form form}
+    <div class="mb-3">
+        {label provider class:'form-label' /}
+        {input provider class:'form-select form-select-lg mb-3'}
+    </div>
+    <div class="row">
+        <div class="col col-5">
+            {label text class:'form-label' /}
+            {input text class:'form-control'}
+        </div>
+        <div class="col col-2 position-relative">
+            <span class="text-center position-absolute top-50 start-50 translate-middle">
+                +
+                <br>
+                marže
+                <br>
+                <span class="fs-2">{$priceCoefficient}&nbsp;%</span>
+            </span>
+        </div>
+        <div class="col col-5">
+            {label result class:'form-label' /}
+            {input result class:'form-control'}
+        </div>
+    </div>
+    <div class="d-grid gap-2 mt-3">
+        {input send class:'btn btn-primary btn-lg'}
+    </div>
+{/form}

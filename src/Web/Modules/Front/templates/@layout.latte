@@ -4,18 +4,53 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
 
-	<title>{ifset title}{include title|stripHtml} | {/ifset}Nette Web</title>
+	<title>{ifset title}{include title|stripHtml} | {/ifset}B & M</title>
 	<link rel="stylesheet" type="text/css" href="/design/front/front.css">
 </head>
 
 <body>
-	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+	<header class="p-3 bg-primary text-white mb-3">
+		<div class="container">
+			<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+				<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+					<li><a href="{link ':Front:Homepage:default'}" class="nav-link px-2 text-white fs-2">🧮 Kalkulátor</a></li>
+				</ul>
 
-	{include content}
+				<div class="text-end">
+					{if $isUserLoggedIn}
+						<a href="{link ':Front:Sign:out'}" class="btn btn-outline-light me-2">Odhlásit</a>
+					{else}
+						<a href="{link ':Front:Sign:in'}" class="btn btn-outline-light me-2">Přihlásit</a>
+					{/if}
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				{include content}
+			</div>
+		</div>
+	</div>
+
+	<footer class="container py-5">
+		<div class="row">
+			<div class="col-12 col-md">
+				<small class="d-block mb-3 text-muted">© 2022 Šáník | PHP {$phpVersion} | Bootstrap <span id="bootstrapVersion"></span></small>
+			</div>
+		</div>
+	</footer>
 
 	{block scripts}
 		<script src="/design/vendor/nette-forms/netteForms.min.js"></script>
 		<script src="/design/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+		<script>
+			window.addEventListener('DOMContentLoaded', () => {
+				document.getElementById('bootstrapVersion').innerText = bootstrap.Tooltip.VERSION;
+			});
+		</script>
 	{/block}
 
 	{control browserSync}
